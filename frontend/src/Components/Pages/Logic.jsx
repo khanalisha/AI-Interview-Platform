@@ -16,7 +16,7 @@ export const Logic = () => {
   const startInterview = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/interview/start",
+        `${process.env.REACT_APP_API_URL}/interview/start`,
         {
           type: "MERN", // Replace with the actual interview type you want to start
         }
@@ -35,7 +35,7 @@ export const Logic = () => {
 
   const handleStop = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/interview/end", {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/interview/end`, {
         conversation: [
           ...conversation,
           { role: "user", content: "endInterviewPrompt" },
@@ -56,7 +56,7 @@ export const Logic = () => {
     try {
       let prompt = startingPrompt && UpdateInterviewPrompt;
 
-      const response = await axios.patch("http://localhost:3000/update", {
+      const response = await axios.patch(`${process.env.REACT_APP_API_URL}/update`, {
         sessionToken: conversation[0]?.sessionToken,
         conversation: [
           ...conversation,
@@ -83,7 +83,7 @@ export const Logic = () => {
     // if (!text.trim() || !interviewStarted) return;
 
     try {
-      const response = await axios.post("http://localhost:3000/gpt", {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/gpt`, {
         conversation: [...conversation, { role: "user", content: text.trim() }],
       });
 
